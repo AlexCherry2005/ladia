@@ -1,0 +1,30 @@
+class Ladia : public GamePiece
+{
+public:
+    Ladia(char cColor) : GamePiece(cColor) {}
+    ~Ladia() {}
+private:
+    virtual char GetPiece() {
+        return 'R';
+    }
+    bool AreSquaresLegal(int x, int y, int z, int w, GamePiece* GameBoard[8][8]) {
+        if (x == z) {
+            int iColOffset = (w - y > 0) ? 1 : -1;
+            for (int iCheckCol = y + iColOffset; iCheckCol !=  w; iCheckCol = iCheckCol + iColOffset) {
+                if (GameBoard[x][iCheckCol] != 0) {
+                    return false;
+                }
+            }
+            return true;
+        } else if (w == y) {
+            int iRowOffset = (z - x > 0) ? 1 : -1;
+            for (int iCheckRow = x + iRowOffset; iCheckRow !=  z; iCheckRow = iCheckRow + iRowOffset) {
+                if (GameBoard[iCheckRow][y] != 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+};
